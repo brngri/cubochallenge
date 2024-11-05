@@ -16,6 +16,12 @@ public class ClientService {
     private Clientrepository clientrepository;
 
     public Client createClient(ClientDTO clientDTO){
+
+
+        if (clientDTO.firstName() == null || clientDTO.lastName() == null || clientDTO.participation() == null) {
+            throw new NullPointerException();
+        }
+
         Client client = new Client();
 
         client.setFirstName(clientDTO.firstName());
@@ -26,6 +32,12 @@ public class ClientService {
     }
 
     public List<Client> listAllClients(){
-        return clientrepository.findAll();
+        List<Client> allClients = clientrepository.findAll();
+
+        if(allClients == null){
+            throw new NullPointerException();
+        }
+
+        return allClients;
     }
 }
