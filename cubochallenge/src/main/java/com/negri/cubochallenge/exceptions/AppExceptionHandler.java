@@ -12,7 +12,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<String> newException(Exception exception){
-       return new ResponseEntity<>("this field is invalid, because it's null", HttpStatus.BAD_GATEWAY); 
+       return new ResponseEntity<>("this field is invalid, because it's null", HttpStatus.BAD_REQUEST); 
     } 
 
 }

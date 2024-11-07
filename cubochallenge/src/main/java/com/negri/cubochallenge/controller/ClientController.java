@@ -14,6 +14,8 @@ import com.negri.cubochallenge.entity.Client;
 import com.negri.cubochallenge.entity.dto.ClientDTO;
 import com.negri.cubochallenge.service.ClientService;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/client")
@@ -24,7 +26,7 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping("/save")
-    public ResponseEntity<Client> saveClient(@RequestBody ClientDTO clientDTO){
+    public ResponseEntity<Client> saveClient(@RequestBody @Valid ClientDTO clientDTO){
         Client client = clientService.createClient(clientDTO);
         return ResponseEntity.ok().body(client);
     }
