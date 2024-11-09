@@ -34,7 +34,7 @@ public class ClientService {
     public List<Client> listAllClients(){
         List<Client> allClients = clientrepository.findAll();
 
-        if(allClients == null || allClients.isEmpty()){
+        if(allClients.isEmpty()){
             throw new NullPointerException();
         }
 

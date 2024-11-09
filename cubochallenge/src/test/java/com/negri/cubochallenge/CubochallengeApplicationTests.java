@@ -32,4 +32,24 @@ class CubochallengeApplicationTests {
 	
 	}
 
+	@Test
+	void testCreatClientFailure(){
+		var client = new Client();
+		webTestClient
+		.post()
+		.uri("/client/save")
+		.bodyValue(client)
+		.exchange()
+		.expectStatus().isBadRequest();
+	}
+
+	@Test
+	void testListAllClientsSuccess(){
+		webTestClient
+		.get()
+		.uri("/client/listAll")
+		.exchange()
+		.expectStatus().isOk();
+	}
+
 }

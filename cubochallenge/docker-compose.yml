@@ -1,0 +1,28 @@
+services:
+  cubochallenge:
+    image: openjdk:11-jre-slim  # ou a imagem do Spring Boot que você está usando
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/clients
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ""  # Senha vazia (sem senha)
+      MYSQL_DATABASE: clients   # Banco de dados 'clients'
+    ports:
+      - "3307:3306"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
