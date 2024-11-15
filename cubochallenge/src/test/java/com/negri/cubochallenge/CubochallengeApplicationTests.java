@@ -45,11 +45,18 @@ class CubochallengeApplicationTests {
 
 	@Test
 	void testListAllClientsSuccess(){
+		var client = new Client("Teste", "Teste", BigDecimal.valueOf(10));
+		webTestClient
+		.post()
+		.uri("/client/save")
+		.bodyValue(client)
+		.exchange();
+
+
 		webTestClient
 		.get()
 		.uri("/client/listAll")
 		.exchange()
 		.expectStatus().isOk();
 	}
-
 }

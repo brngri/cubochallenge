@@ -1,28 +1,30 @@
 services:
-  cubochallenge:
-    image: openjdk:11-jre-slim  # ou a imagem do Spring Boot que você está usando
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/clients
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    depends_on:
-      - mysql
-    networks:
-      - app-network
-
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: ""  # Senha vazia (sem senha)
-      MYSQL_DATABASE: clients   # Banco de dados 'clients'
+  db:
+    image: mysql:8.0.31
+    volumes:
+      - dbbase:/var/lib/mysql
     ports:
       - "3307:3306"
-    networks:
-      - app-network
+    environment:
+      MYSQL_ROOT_PASSWORD: toor123
+      MYSQL_DATABASE: client
 
-networks:
-  app-network:
-    driver: bridge
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8000:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+
+  app:
+    image: cubochallenge-image:latest  # Substitua pelo nome da sua imagem
+    build:
+      context: C:\Users\bruna\OneDrive\Documentos\CodigoVS\java\cubochallenge\cubochallenge  # Caminho onde está o Dockerfile
+    ports:
+      - "8080:8080"  # Mapeie a porta que sua aplicação Spring Boot usa
+    depends_on:
+      - db  # Garante que o db esteja rodando antes de iniciar o app
+
+volumes:
+  dbbase:
