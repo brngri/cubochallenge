@@ -91,6 +91,10 @@ Body:
 }
 ````
 
+### Para desligar a aplicação (CMD)
+```CMD
+  docker-compose down
+```
 
 ### Swagger
 
